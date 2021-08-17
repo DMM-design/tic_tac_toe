@@ -21,3 +21,17 @@
     justify-content: center;
     align-items: center;
 }
+
+.popOut{
+    padding: 4%;
+    display: grid;
+    place-items: center;
+    border-radius: 20px;
+    border: 2px solid rgb(0, 0, 0);
+    position: absolute;
+}
+
+.popOut > .finalResult {
+    margin-bottom: 10px;
+    font-size: 20px;
+}

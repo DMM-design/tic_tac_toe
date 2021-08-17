@@ -1,20 +1,14 @@
-
-
-
 const $ = elem => document.querySelector(elem);
 const $$ = elems => document.querySelectorAll(elems);
+
 const $app = $('.app');
 const $resetBtn = $('.resetBtn');
 const $statusDisplay = $('.status');
 const $finalResult = $('.finalResult');
 
-$resetBtn.addEventListener('click', () => resetGame());
-
-
-// Current Game state
 let gameState = ["", "", "", "", "", "", "", "", ""];
 let activeGame = true;
-let currentPlayer = "X";
+let currentPlayer = "O";
 const winningConditions = [
     [0, 1, 2],
     [3, 4, 5],
@@ -25,7 +19,7 @@ const winningConditions = [
     [0, 4, 8],
     [2, 4, 6]
 ];
-// Final Messages
+
 const winningMessage = () => `Player ${currentPlayer} has won!`;
 const drawMessage = () => `Game ended in a draw!`;
 const currentPlayerTurn = () => `It's ${currentPlayer}'s turn`;
@@ -33,7 +27,8 @@ const currentPlayerTurn = () => `It's ${currentPlayer}'s turn`;
 const container = document.createElement('div');
     container.className = 'container';
 
-// TODO: Create functions: (setCurrentMove, finalStatus, ResetGame, gameStatus)
+$resetBtn.addEventListener('click', () => resetGame());
+
 const handleClick = (currentBox) => {
     const {boxindex} = currentBox.target.dataset;
     if (gameState[boxindex] !== "" || !activeGame) {
@@ -49,38 +44,36 @@ const setCurrentMove = (box, boxIndex) => {
 };
 
 const resultStatus = () => {
-    let roundWon = false;
+    let gameWon = false;
     for (let i = 0; i <= 7; i++) {
         const winCondition = winningConditions[i];
         let a = gameState[winCondition[0]];
         let b = gameState[winCondition[1]];
         let c = gameState[winCondition[2]];
-        if (a === '' || b === '' || c === '') {
-            continue;
-        }
+        if (a === '' || b === '' || c === '') continue;
         if (a === b && b === c) {
-            roundWon = true;
-            break
+            gameWon = true;
+            break;
         }
     }
-    if (roundWon) {
+    if (gameWon) {
         $finalResult.innerHTML = winningMessage();
         activeGame = false;
         return;
     }
-
-    let roundDraw = !gameState.includes("");
-    if (roundDraw) {
+    let draw = !gameState.includes("");
+    if (draw) {
         $finalResult.innerHTML = drawMessage();
         activeGame = false;
         return;
     }
+
     handlePlayerChange();
 };
 
 const resetGame = () => {
     activeGame = true;
-    currentPlayer = "X";
+    currentPlayer = "O";
     gameState = ["", "", "", "", "", "", "", "", ""];
     $statusDisplay.innerHTML = currentPlayerTurn();
     document.querySelectorAll('.block')
@@ -88,7 +81,7 @@ const resetGame = () => {
 };
 
 function handlePlayerChange() {
-    currentPlayer = currentPlayer === "X" ? "O" : "X";
+    currentPlayer = currentPlayer === "O" ? "X" : "O";
     $statusDisplay.innerHTML = currentPlayerTurn();
 }
 
