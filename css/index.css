@@ -11,7 +11,7 @@
     grid-template: repeat(3, 1fr) / repeat(3, 1fr);
 }
 
-.blocks{
+.block{
     border: 6px solid #2c3e50;
     border-radius: 2px;
     font-family: Helvetica;
